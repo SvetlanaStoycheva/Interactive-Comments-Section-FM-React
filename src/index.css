@@ -3,7 +3,7 @@
 Fonts
 ===============
 */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
 /*
 =============== 
@@ -13,11 +13,16 @@ Variables
 
 :root {
   /* primary/main color */
-  --clr-primary-soft-blue: hsl(231, 69%, 60%);
-  --clr-primary-soft-red: hsl(0, 94%, 66%);
-  --clr-primary-grayish-blue: hsl(229, 8%, 60%);
-  --clr-primary-dark-grayish-blue: hsl(231, 5%, 29%);
-  --clr-primary-very-dark-blue: hsl(229, 31%, 21%);
+  --clr-primary-moderate-blue: hsl(238, 40%, 52%);
+  --clr-primary-soft-red: hsl(358, 79%, 66%);
+  --clr-primary-light-grayish-blue: hsl(239, 57%, 85%);
+  --clr-primary-pale-red: hsl(357, 100%, 86%);
+  /* neutral */
+  --clr-neutral-dark-blue: hsl(212, 24%, 26%);
+  --clr-neutral-grayish-blue: hsl(211, 10%, 45%);
+  --clr-neutral-light-gray: hsl(223, 19%, 93%);
+  --clr-neutral-very-light-gray: hsl(228, 33%, 97%);
+  --clr-neutral-white: hsl(0, 0%, 100%);
 
   --ff-primary: 'Rubik', sans-serif;
   --transition: all 0.3s linear;
@@ -87,6 +92,7 @@ h4 {
   font-size: 0.875rem;
 }
 p {
+  font-size: 16px;
   margin-bottom: 1.25rem;
 }
 .btn {

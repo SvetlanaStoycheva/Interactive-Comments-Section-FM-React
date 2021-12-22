@@ -1,7 +1,14 @@
 import React from 'react';
+import data from './data.json';
 
 function App() {
-  return <h2>hello</h2>;
+  console.log(data.comments);
+
+  return (
+    <main>
+      <section className='comments-container'></section>
+    </main>
+  );
 }
 
 export default App;
