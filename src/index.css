@@ -125,3 +125,16 @@ p {
 Styles
 ===============
 */
+.main {
+  background: var(--clr-neutral-light-gray);
+  padding: 4rem;
+}
+.single-comment {
+  background: var(--clr-neutral-very-light-gray);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+}
+.replies-container {
+  margin-left: 4rem;
+}
