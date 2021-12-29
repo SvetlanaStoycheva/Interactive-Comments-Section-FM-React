@@ -1,27 +1,30 @@
-import React from 'react';
-import { data } from './data';
-import { BsPlus, BsArrow90DegLeft } from 'react-icons/bs';
+import React, { useState } from 'react';
+import NewCommentComponent from './components/NewComment';
+import AuthorComment from './components/AuthorComment';
+import { useGlobalContext } from './context';
+import { BsPlus, BsArrow90DegLeft, BsTypeH2 } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import img from './images-avatars/image-juliusomo.png';
 
 function App() {
-  // console.log(data.comments);
+  const { data } = useGlobalContext();
+  console.log(data);
 
   return (
     <main className='main'>
       <section className='comments-container'>
-        {data.comments.map((item) => {
-          const { content, createdAt, id, replies, score, user } = item;
+        {data.comments.map((item, index) => {
+          const { content, createdAt, replies, score, user } = item;
           const {
             image: { png: userImage },
             username: usernameMainComment,
           } = user;
-          console.log(replies);
+
           // Comments
-          return (
+          return item.author ? (
+            <AuthorComment />
+          ) : (
             <>
-              <article className='single-comment' key={id}>
+              <article className='single-comment' key={index}>
                 <div className='votes-btn'>
                   <button className='score-btn'>
                     <span className='score-btn-icons score-btn-icons-plus '>
@@ -32,6 +35,14 @@ function App() {
                       <FiMinus />
                     </span>
                   </button>
+                  {/* if you are the author of the comment, you have delete and edit button instead of replay */}
+                  {item.author && (
+                    <div className='delete-edit-btn-container'>
+                      <button>Delete</button>
+                      <button>Edit</button>
+                    </div>
+                  )}
+
                   <button className='replay-btn-small-window'>
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
@@ -62,7 +73,7 @@ function App() {
               {replies.length > 0 && (
                 <div className='replies-container'>
                   {replies.map((item, index) => {
-                    const { content, createdAt, id, score, user } = item;
+                    const { content, createdAt, score, user } = item;
                     const {
                       image: { png: userImage },
                       username,
@@ -71,7 +82,7 @@ function App() {
                     return (
                       <article
                         className='single-comment single-replay'
-                        key={`${id}${index}`}
+                        key={index}
                       >
                         <div className='votes-btn'>
                           <button className='score-btn'>
@@ -122,26 +133,7 @@ function App() {
           );
         })}
         {/* Create comment container */}
-        <article className='form-container'>
-          <img src={img} alt='author' className='send-form-img-big-screen' />
-          <form className='form'>
-            <textarea
-              type='text'
-              className='form-input'
-              placeholder='Add a comment...'
-            />
-            <div className='send-btn-container'>
-              <img
-                src={img}
-                alt='author'
-                className='send-form-img-small-screen'
-              />
-              <button type='submit' className='submit-btn'>
-                SEND
-              </button>
-            </div>
-          </form>
-        </article>
+        <NewCommentComponent />
       </section>
     </main>
   );

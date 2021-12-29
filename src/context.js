@@ -1,9 +1,53 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { initialData } from './data';
+import imgCurrentUser from './images-avatars/image-juliusomo.png';
+
+//get data from LocalStorage
+const getLocalStorage = () => {
+  let data = localStorage.getItem('data');
+  if (data) {
+    return JSON.parse(localStorage.getItem('data'));
+  } else {
+    return initialData;
+  }
+};
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  return <AppContext.Provider value={{}}>{children}</AppContext.Provider>;
+  const [data, setData] = useState(getLocalStorage());
+
+  //add new comment to the data
+  const addNewComment = (text) => {
+    const newComment = {
+      id: 1,
+      author: true,
+      content: text,
+      createdAt: '1 min ago',
+      score: 0,
+      user: {
+        image: {
+          png: imgCurrentUser,
+        },
+        username: 'amyrobson',
+      },
+      replies: [],
+    };
+    //push new author comment to the initial data.
+    initialData.comments.push(newComment);
+    setData(initialData);
+  };
+
+  //set data on LocalStorage
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(data));
+  }, [data]);
+
+  return (
+    <AppContext.Provider value={{ data, addNewComment }}>
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 //custom hook

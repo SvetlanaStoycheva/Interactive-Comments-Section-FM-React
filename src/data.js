@@ -3,7 +3,7 @@ import img02 from './images-avatars/image-juliusomo.png';
 import img03 from './images-avatars/image-maxblagun.png';
 import img04 from './images-avatars/image-ramsesmiron.png';
 
-export const data = {
+export const initialData = {
   currentUser: {
     image: {
       png: img01,
