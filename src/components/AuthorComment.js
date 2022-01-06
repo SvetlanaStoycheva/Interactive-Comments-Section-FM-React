@@ -7,17 +7,20 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 const AuthorComment = () => {
   const { data } = useGlobalContext();
 
-  //fing author comment from the data to display it with different css
+  //find author comment or comments from the data to display it with different html/css
   const autorCommentFromData = data.comments.find((item) => item.author);
+
+  // autorCommentFromData.map((item) => {
   const { content, createdAt, replies, score, user } = autorCommentFromData;
   const {
     image: { png: userImage },
     username: usernameMainComment,
   } = user;
+  // });
 
   return (
     <article className='single-comment'>
-      <div className='votes-btn'>
+      <div className='votes-btn author-comment-header-btns'>
         <button className='score-btn'>
           <span className='score-btn-icons score-btn-icons-plus '>
             <BsPlus />
@@ -28,9 +31,19 @@ const AuthorComment = () => {
           </span>
         </button>
 
-        <div className='delete-edit-btn-container'>
-          <button>Delete</button>
-          <button>Edit</button>
+        <div className='delete-edit-btn-container-small-window'>
+          <button className='author-comment-delete-btn'>
+            <span>
+              <AiFillDelete />
+            </span>
+            Delete
+          </button>
+          <button className='author-comment-edit-btn'>
+            <span>
+              <AiFillEdit />
+            </span>
+            Edit
+          </button>
         </div>
       </div>
       <div className='info-container'>
@@ -38,15 +51,28 @@ const AuthorComment = () => {
           <div className='img-name-container'>
             <img src={userImage} alt='user' />
             <h3>{usernameMainComment}</h3>
+            <p>you</p>
             <h4>{createdAt}</h4>
           </div>
-          <div></div>
+          <div className='delete-edit-btn-container-big-window'>
+            <button className='author-comment-delete-btn'>
+              <span>
+                <AiFillDelete />
+              </span>
+              Delete
+            </button>
+            <button className='author-comment-edit-btn'>
+              <span>
+                <AiFillEdit />
+              </span>
+              Edit
+            </button>
+          </div>
         </div>
         <p>{content}</p>
       </div>
     </article>
   );
-  //   } else return [];
 };
 
 export default AuthorComment;

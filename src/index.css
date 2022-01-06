@@ -337,3 +337,49 @@ Styles
     margin-top: 0;
   }
 }
+
+/* Author Comment Container */
+.img-name-container p {
+  margin-bottom: 0;
+  background: var(--clr-primary-moderate-blue);
+  color: var(--clr-neutral-very-light-gray);
+  padding: 0.2rem 0.7rem;
+}
+.author-comment-delete-btn {
+  background: transparent;
+  border: transparent;
+  color: var(--clr-primary-soft-red);
+  font-size: 1rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.author-comment-delete-btn:hover {
+  color: var(--clr-primary-pale-red);
+}
+.author-comment-edit-btn {
+  background: transparent;
+  border: transparent;
+  color: var(--clr-primary-moderate-blue);
+  margin-left: 1rem;
+  font-size: 1rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.author-comment-edit-btn:hover {
+  color: var(--clr-primary-light-grayish-blue);
+}
+.author-comment-header-btns {
+  display: flex;
+  align-items: center;
+}
+.delete-edit-btn-container-big-window {
+  display: none;
+}
+@media screen and (min-width: 1100px) {
+  .delete-edit-btn-container-small-window {
+    display: none;
+  }
+  .delete-edit-btn-container-big-window {
+    display: inline-block;
+  }
+}

@@ -20,7 +20,7 @@ const AppProvider = ({ children }) => {
   //add new comment to the data
   const addNewComment = (text) => {
     const newComment = {
-      id: 1,
+      // id: 1,
       author: true,
       content: text,
       createdAt: '1 min ago',
@@ -33,9 +33,10 @@ const AppProvider = ({ children }) => {
       },
       replies: [],
     };
-    //push new author comment to the initial data.
-    initialData.comments.push(newComment);
-    setData(initialData);
+    //add new author comment to the data.
+    const newComments = [...data.comments, newComment];
+    console.log(newComments);
+    setData({ ...data, comments: newComments });
   };
 
   //set data on LocalStorage

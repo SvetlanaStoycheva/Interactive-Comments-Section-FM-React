@@ -9,6 +9,7 @@ const NewComment = () => {
   const handleNewComment = (e) => {
     e.preventDefault();
     addNewComment(newComment);
+    setNewComment('');
   };
   return (
     <article className='form-container'>

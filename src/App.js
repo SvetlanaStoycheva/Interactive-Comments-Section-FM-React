@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NewCommentComponent from './components/NewComment';
 import AuthorComment from './components/AuthorComment';
 import { useGlobalContext } from './context';
-import { BsPlus, BsArrow90DegLeft, BsTypeH2 } from 'react-icons/bs';
+import { BsPlus, BsArrow90DegLeft } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 
 function App() {
@@ -35,14 +35,6 @@ function App() {
                       <FiMinus />
                     </span>
                   </button>
-                  {/* if you are the author of the comment, you have delete and edit button instead of replay */}
-                  {item.author && (
-                    <div className='delete-edit-btn-container'>
-                      <button>Delete</button>
-                      <button>Edit</button>
-                    </div>
-                  )}
-
                   <button className='replay-btn-small-window'>
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
