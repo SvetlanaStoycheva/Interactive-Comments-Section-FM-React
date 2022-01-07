@@ -7,7 +7,7 @@ import { FiMinus } from 'react-icons/fi';
 
 function App() {
   const { data } = useGlobalContext();
-  console.log(data);
+  // console.log(data);
 
   return (
     <main className='main'>
@@ -21,7 +21,7 @@ function App() {
 
           // Comments
           return item.author ? (
-            <AuthorComment />
+            <AuthorComment key={index} item={item} />
           ) : (
             <>
               <article className='single-comment' key={index}>

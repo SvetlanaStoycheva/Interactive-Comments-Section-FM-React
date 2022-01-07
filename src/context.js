@@ -19,8 +19,10 @@ const AppProvider = ({ children }) => {
 
   //add new comment to the data
   const addNewComment = (text) => {
+    // const randomId = Math.floor(Math.random() * 100);
+    const randomId = Date.now();
     const newComment = {
-      // id: 1,
+      id: randomId,
       author: true,
       content: text,
       createdAt: '1 min ago',
@@ -35,8 +37,13 @@ const AppProvider = ({ children }) => {
     };
     //add new author comment to the data.
     const newComments = [...data.comments, newComment];
-    console.log(newComments);
     setData({ ...data, comments: newComments });
+  };
+
+  //On click Delete btn => delete authorComment
+  const deleteAuthorComment = (item) => {
+    const newDataComments = data.comments.filter((i) => i.id !== item.id);
+    setData({ ...data, comments: newDataComments });
   };
 
   //set data on LocalStorage
@@ -45,7 +52,7 @@ const AppProvider = ({ children }) => {
   }, [data]);
 
   return (
-    <AppContext.Provider value={{ data, addNewComment }}>
+    <AppContext.Provider value={{ data, addNewComment, deleteAuthorComment }}>
       {children}
     </AppContext.Provider>
   );

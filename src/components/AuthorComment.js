@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../context';
 import { BsPlus } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
-const AuthorComment = () => {
-  const { data } = useGlobalContext();
+const AuthorComment = ({ item }) => {
+  const { deleteAuthorComment } = useGlobalContext();
+  const [authorCommentIsEditing, setAuthorCommentIsEditing] = useState(false);
 
-  //find author comment or comments from the data to display it with different html/css
-  const autorCommentFromData = data.comments.find((item) => item.author);
-
-  // autorCommentFromData.map((item) => {
-  const { content, createdAt, replies, score, user } = autorCommentFromData;
+  //if the item has .author: true gets passed here in order to have an author's comment css
+  const { content, createdAt, replies, score, user } = item;
   const {
     image: { png: userImage },
     username: usernameMainComment,
   } = user;
-  // });
+
+  const editAuthorComment = () => {
+    setAuthorCommentIsEditing(true);
+  };
 
   return (
     <article className='single-comment'>
@@ -32,13 +33,19 @@ const AuthorComment = () => {
         </button>
 
         <div className='delete-edit-btn-container-small-window'>
-          <button className='author-comment-delete-btn'>
+          <button
+            className='author-comment-delete-btn'
+            onClick={() => deleteAuthorComment(item)}
+          >
             <span>
               <AiFillDelete />
             </span>
             Delete
           </button>
-          <button className='author-comment-edit-btn'>
+          <button
+            className='author-comment-edit-btn'
+            onClick={() => editAuthorComment()}
+          >
             <span>
               <AiFillEdit />
             </span>
@@ -55,13 +62,19 @@ const AuthorComment = () => {
             <h4>{createdAt}</h4>
           </div>
           <div className='delete-edit-btn-container-big-window'>
-            <button className='author-comment-delete-btn'>
+            <button
+              className='author-comment-delete-btn'
+              onClick={() => deleteAuthorComment(item)}
+            >
               <span>
                 <AiFillDelete />
               </span>
               Delete
             </button>
-            <button className='author-comment-edit-btn'>
+            <button
+              className='author-comment-edit-btn'
+              onClick={() => editAuthorComment()}
+            >
               <span>
                 <AiFillEdit />
               </span>
@@ -69,7 +82,18 @@ const AuthorComment = () => {
             </button>
           </div>
         </div>
-        <p>{content}</p>
+        {!authorCommentIsEditing ? (
+          <p>{content}</p>
+        ) : (
+          <div>
+            <form className='form'>
+              <textarea value={content}></textarea>
+            </form>
+            <button className='author-comment-edit-btn submit-btn '>
+              UPDATE
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );
