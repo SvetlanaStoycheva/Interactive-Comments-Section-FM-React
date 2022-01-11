@@ -7,7 +7,7 @@ import { FiMinus } from 'react-icons/fi';
 
 function App() {
   const { data } = useGlobalContext();
-  // console.log(data);
+  console.log(data);
 
   return (
     <main className='main'>

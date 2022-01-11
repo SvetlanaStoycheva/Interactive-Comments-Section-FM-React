@@ -46,13 +46,31 @@ const AppProvider = ({ children }) => {
     setData({ ...data, comments: newDataComments });
   };
 
+  //After content of a comment is edited, it needs to be updated in the data
+  const updateItemContentAfterEditInData = (item, newEdit) => {
+    data.comments.find((i) => {
+      if (i.id === item.id) {
+        i.content = newEdit;
+      }
+    });
+    setData(data);
+    localStorage.setItem('data', JSON.stringify(data));
+  };
+
   //set data on LocalStorage
   useEffect(() => {
     localStorage.setItem('data', JSON.stringify(data));
   }, [data]);
 
   return (
-    <AppContext.Provider value={{ data, addNewComment, deleteAuthorComment }}>
+    <AppContext.Provider
+      value={{
+        data,
+        addNewComment,
+        deleteAuthorComment,
+        updateItemContentAfterEditInData,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

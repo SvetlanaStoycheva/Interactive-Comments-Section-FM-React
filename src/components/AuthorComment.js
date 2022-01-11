@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../context';
 import { BsPlus } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
 const AuthorComment = ({ item }) => {
-  const { deleteAuthorComment } = useGlobalContext();
+  const {
+    deleteAuthorComment,
+    updateItemContentAfterEditInData,
+  } = useGlobalContext();
   const [authorCommentIsEditing, setAuthorCommentIsEditing] = useState(false);
+  const [newEdit, setNewEdit] = useState(item.content);
+  const [newContent, setNewContent] = useState(item.content);
 
-  //if the item has .author: true gets passed here in order to have an author's comment css
-  const { content, createdAt, replies, score, user } = item;
+  //if the item has .author: true, gets passed here in order to have an author's comment css
+  let { content, createdAt, replies, score, user } = item;
   const {
     image: { png: userImage },
     username: usernameMainComment,
@@ -17,6 +22,14 @@ const AuthorComment = ({ item }) => {
 
   const editAuthorComment = () => {
     setAuthorCommentIsEditing(true);
+  };
+
+  //show edited comment after update btn is clicked
+  const setEditedText = () => {
+    setAuthorCommentIsEditing(false);
+    setNewContent(newEdit);
+    //need to update the comment content in the data
+    updateItemContentAfterEditInData(item, newEdit);
   };
 
   return (
@@ -82,14 +95,22 @@ const AuthorComment = ({ item }) => {
             </button>
           </div>
         </div>
+        {/* Edit the comment */}
         {!authorCommentIsEditing ? (
-          <p>{content}</p>
+          <p>{newContent}</p>
         ) : (
           <div>
             <form className='form'>
-              <textarea value={content}></textarea>
+              <textarea
+                className='form-input'
+                value={newEdit}
+                onChange={(e) => setNewEdit(e.target.value)}
+              ></textarea>
             </form>
-            <button className='author-comment-edit-btn submit-btn '>
+            <button
+              className='author-comment-edit-btn submit-btn'
+              onClick={setEditedText}
+            >
               UPDATE
             </button>
           </div>
