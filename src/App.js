@@ -1,13 +1,12 @@
 import React from 'react';
 import NewCommentComponent from './components/NewComment';
 import AuthorComment from './components/AuthorComment';
+import ScoreButton from './components/ScoreButton';
+import { BsArrow90DegLeft } from 'react-icons/bs';
 import { useGlobalContext } from './context';
-import { BsPlus, BsArrow90DegLeft } from 'react-icons/bs';
-import { FiMinus } from 'react-icons/fi';
 
 function App() {
   const { data } = useGlobalContext();
-  console.log(data);
 
   return (
     <main className='main'>
@@ -26,15 +25,7 @@ function App() {
             <>
               <article className='single-comment' key={index}>
                 <div className='votes-btn'>
-                  <button className='score-btn'>
-                    <span className='score-btn-icons score-btn-icons-plus '>
-                      <BsPlus />
-                    </span>
-                    <p>{score}</p>
-                    <span className='score-btn-icons'>
-                      <FiMinus />
-                    </span>
-                  </button>
+                  <ScoreButton score={score} item={item} />
                   <button className='replay-btn-small-window'>
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
@@ -77,15 +68,7 @@ function App() {
                         key={index}
                       >
                         <div className='votes-btn'>
-                          <button className='score-btn'>
-                            <span className='score-btn-icons score-btn-icons-plus '>
-                              <BsPlus />
-                            </span>
-                            <p>{score}</p>
-                            <span className='score-btn-icons'>
-                              <FiMinus />
-                            </span>
-                          </button>
+                          <ScoreButton score={score} item={item} />
                           <button className='replay-btn-small-window'>
                             <span className='replay-btn-icon'>
                               <BsArrow90DegLeft />

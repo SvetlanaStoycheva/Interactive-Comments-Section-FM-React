@@ -63,6 +63,7 @@ export const initialData = {
           createdAt: '2 days ago',
           score: 2,
           replyingTo: 'ramsesmiron',
+          author: true,
           user: {
             image: {
               png: img02,

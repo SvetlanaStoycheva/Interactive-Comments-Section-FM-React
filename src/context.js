@@ -31,7 +31,7 @@ const AppProvider = ({ children }) => {
         image: {
           png: imgCurrentUser,
         },
-        username: 'amyrobson',
+        username: 'juliusomo',
       },
       replies: [],
     };
@@ -48,7 +48,7 @@ const AppProvider = ({ children }) => {
 
   //After content of a comment is edited, it needs to be updated in the data
   const updateItemContentAfterEditInData = (item, newEdit) => {
-    data.comments.find((i) => {
+    data.comments.map((i) => {
       if (i.id === item.id) {
         i.content = newEdit;
       }
@@ -56,6 +56,9 @@ const AppProvider = ({ children }) => {
     setData(data);
     localStorage.setItem('data', JSON.stringify(data));
   };
+
+  //update ItemVote after voting in the data and LocalStorage
+  const updateItemVote = (item, vote) => {};
 
   //set data on LocalStorage
   useEffect(() => {
@@ -69,6 +72,7 @@ const AppProvider = ({ children }) => {
         addNewComment,
         deleteAuthorComment,
         updateItemContentAfterEditInData,
+        updateItemVote,
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../context';
+import ScoreButton from '../components/ScoreButton';
 import { BsPlus } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
@@ -35,7 +36,7 @@ const AuthorComment = ({ item }) => {
   return (
     <article className='single-comment'>
       <div className='votes-btn author-comment-header-btns'>
-        <button className='score-btn'>
+        {/* <button className='score-btn'>
           <span className='score-btn-icons score-btn-icons-plus '>
             <BsPlus />
           </span>
@@ -43,8 +44,8 @@ const AuthorComment = ({ item }) => {
           <span className='score-btn-icons'>
             <FiMinus />
           </span>
-        </button>
-
+        </button> */}
+        <ScoreButton score={score} item={item} />
         <div className='delete-edit-btn-container-small-window'>
           <button
             className='author-comment-delete-btn'
