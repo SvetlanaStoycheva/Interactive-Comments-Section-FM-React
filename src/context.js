@@ -58,7 +58,31 @@ const AppProvider = ({ children }) => {
   };
 
   //update ItemVote after voting in the data and LocalStorage
-  const updateItemVote = (item, vote) => {};
+  const updateItemVote = (currentScore, item) => {
+    // console.log(currentScore, item);
+    //if item is a replay
+    if (item.replyingTo) {
+      data.comments.map((c) => {
+        if (c.replies) {
+          c.replies.map((r) => {
+            if (r === item) {
+              r.score = currentScore;
+            }
+          });
+        }
+      });
+      //if item is a comment, not a reply
+    } else {
+      data.comments.map((c) => {
+        if (c === item) {
+          c.score = currentScore;
+        }
+      });
+    }
+    //
+    setData(data);
+    localStorage.setItem('data', JSON.stringify(data));
+  };
 
   //set data on LocalStorage
   useEffect(() => {

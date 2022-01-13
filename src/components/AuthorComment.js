@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../context';
 import ScoreButton from '../components/ScoreButton';
-import { BsPlus } from 'react-icons/bs';
-import { FiMinus } from 'react-icons/fi';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
 const AuthorComment = ({ item }) => {
