@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../context';
 import { BsPlus } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
-import { initialData } from '../data';
+// import { initialData } from '../data';
 
 const ScoreButton = ({ score, item }) => {
   const { updateItemVote } = useGlobalContext();
+  // const [originalScore, setOriginalScore] = useState(0);
   const [newScore, setNewScore] = useState(score);
 
-  //Find the original score in the data in order to able to change it only with +-1;
-  // let originalScore = 0;
-  // initialData.comments.map((c) => {
-  //   if (item.replyingTo) {
-  //     c.replies.map((r) => {
-  //       if (r === item) {
-  //         originalScore = r.score;
+  //Find the original score in the initialData in order to be able to change it only with +-1;
+  // const findOriginalScore = () => {
+  //   initialData.comments.map((c) => {
+  //     if (item.replyingTo) {
+  //       c.replies.map((r) => {
+  //         if (r === item) {
+  //           setOriginalScore(r.score);
+  //         }
+  //       });
+  //     } else {
+  //       if (c === item) {
+  //         setOriginalScore(c.score);
   //       }
-  //     });
-  //   } else {
-  //     if (c === item) {
-  //       originalScore = c.score;
   //     }
-  //   }
-  // });
+  //   });
+  // };
+  // useEffect(() => {
+  //   findOriginalScore();
+  // }, []);
+  // console.log(originalScore);
 
   const increaseValue = (s) => {
     const currentScore = s + 1;

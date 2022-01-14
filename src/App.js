@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewCommentComponent from './components/NewComment';
 import AuthorComment from './components/AuthorComment';
 import ScoreButton from './components/ScoreButton';
 import { BsArrow90DegLeft } from 'react-icons/bs';
 import { useGlobalContext } from './context';
+import ReplayForm from './components/ReplayForm';
 
 function App() {
   const { data } = useGlobalContext();
+  const [isReplaying, setIsReplaying] = useState(false);
 
+  //when the Replay button is clicked
+  const handleRiplay = (item) => {
+    setIsReplaying(true);
+  };
   return (
     <main className='main'>
       <section className='comments-container'>
@@ -23,10 +29,13 @@ function App() {
             <AuthorComment key={index} item={item} />
           ) : (
             <>
-              <article className='single-comment' key={index}>
+              <article className='single-comment' key={`${index}a`}>
                 <div className='votes-btn'>
                   <ScoreButton score={score} item={item} />
-                  <button className='replay-btn-small-window'>
+                  <button
+                    className='replay-btn-small-window'
+                    onClick={() => handleRiplay(item)}
+                  >
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
                     </span>
@@ -52,6 +61,8 @@ function App() {
                   <p>{content}</p>
                 </div>
               </article>
+              {/* If the Replay button is clicked */}
+              {isReplaying && <ReplayForm item={item} />}
               {/* Replaies */}
               {replies.length > 0 && (
                 <div className='replies-container'>
@@ -65,7 +76,7 @@ function App() {
                     return (
                       <article
                         className='single-comment single-replay'
-                        key={index}
+                        key={`${index}b`}
                       >
                         <div className='votes-btn'>
                           <ScoreButton score={score} item={item} />

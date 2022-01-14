@@ -40,6 +40,29 @@ const AppProvider = ({ children }) => {
     setData({ ...data, comments: newComments });
   };
 
+  //add new replay to the data
+  const addNewReplay = (text) => {
+    // const randomId = Math.floor(Math.random() * 100);
+    const randomId = Date.now();
+    const newReplay = {
+      id: randomId,
+      author: true,
+      content: text,
+      createdAt: '1 min ago',
+      score: 0,
+      user: {
+        image: {
+          png: imgCurrentUser,
+        },
+        username: 'juliusomo',
+      },
+      replies: [],
+    };
+    //add new author replay to the data.
+    // const newComments = [...data.comments, newComment];
+    // setData({ ...data, comments: newComments });
+  };
+
   //On click Delete btn => delete authorComment
   const deleteAuthorComment = (item) => {
     const newDataComments = data.comments.filter((i) => i.id !== item.id);
@@ -50,8 +73,9 @@ const AppProvider = ({ children }) => {
   const updateItemContentAfterEditInData = (item, newEdit) => {
     data.comments.map((i) => {
       if (i.id === item.id) {
-        i.content = newEdit;
+        return (i.content = newEdit);
       }
+      return i.content;
     });
     setData(data);
     localStorage.setItem('data', JSON.stringify(data));
@@ -61,24 +85,22 @@ const AppProvider = ({ children }) => {
   const updateItemVote = (currentScore, item) => {
     // console.log(currentScore, item);
     //if item is a replay
-    if (item.replyingTo) {
-      data.comments.map((c) => {
-        if (c.replies) {
-          c.replies.map((r) => {
-            if (r === item) {
-              r.score = currentScore;
-            }
-          });
-        }
-      });
-      //if item is a comment, not a reply
-    } else {
-      data.comments.map((c) => {
+    data.comments.forEach((c) => {
+      if (c.replies) {
+        c.replies.map((r) => {
+          if (r === item) {
+            return (r.score = currentScore);
+          }
+          return r.score;
+        });
+      } else {
         if (c === item) {
-          c.score = currentScore;
+          return (c.score = currentScore);
         }
-      });
-    }
+        return c.score;
+      }
+    });
+
     //
     setData(data);
     localStorage.setItem('data', JSON.stringify(data));
@@ -94,6 +116,7 @@ const AppProvider = ({ children }) => {
       value={{
         data,
         addNewComment,
+        addNewReplay,
         deleteAuthorComment,
         updateItemContentAfterEditInData,
         updateItemVote,
