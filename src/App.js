@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewCommentComponent from './components/NewComment';
 import AuthorComment from './components/AuthorComment';
 import ScoreButton from './components/ScoreButton';
@@ -8,17 +8,19 @@ import ReplayForm from './components/ReplayForm';
 
 function App() {
   const { data } = useGlobalContext();
-  const [isReplaying, setIsReplaying] = useState(false);
+  const [isReplayingId, setIsReplayingId] = useState(null);
 
   //when the Replay button is clicked
-  const handleRiplay = (item) => {
-    setIsReplaying(true);
+  const handleRiplay = (id) => {
+    //set active status on the clicked item replay button
+    setIsReplayingId(id);
   };
+  useEffect(() => {}, [data]);
   return (
     <main className='main'>
       <section className='comments-container'>
         {data.comments.map((item, index) => {
-          const { content, createdAt, replies, score, user } = item;
+          const { content, createdAt, replies, score, user, id } = item;
           const {
             image: { png: userImage },
             username: usernameMainComment,
@@ -34,7 +36,7 @@ function App() {
                   <ScoreButton score={score} item={item} />
                   <button
                     className='replay-btn-small-window'
-                    onClick={() => handleRiplay(item)}
+                    onClick={() => handleRiplay(id)}
                   >
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
@@ -62,55 +64,59 @@ function App() {
                 </div>
               </article>
               {/* If the Replay button is clicked */}
-              {isReplaying && <ReplayForm item={item} />}
+              {isReplayingId === id && <ReplayForm item={item} />}
               {/* Replaies */}
               {replies.length > 0 && (
                 <div className='replies-container'>
                   {replies.map((item, index) => {
-                    const { content, createdAt, score, user } = item;
+                    const { content, createdAt, score, user, id } = item;
                     const {
                       image: { png: userImage },
                       username,
                     } = user;
                     //  single replay container
-                    return (
-                      <article
-                        className='single-comment single-replay'
-                        key={`${index}b`}
-                      >
-                        <div className='votes-btn'>
-                          <ScoreButton score={score} item={item} />
-                          <button className='replay-btn-small-window'>
-                            <span className='replay-btn-icon'>
-                              <BsArrow90DegLeft />
-                            </span>
-                            Replay
-                          </button>
-                        </div>
-                        <div className='info-container'>
-                          <div className='info-header'>
-                            <div className='img-name-container'>
-                              <img src={userImage} alt='user' />
-                              <h3>{username}</h3>
-                              <h4>{createdAt}</h4>
-                            </div>
-                            <div>
-                              <button className='replay-btn-big-window'>
-                                <span>
-                                  <BsArrow90DegLeft />
-                                </span>
-                                Replay
-                              </button>
-                            </div>
+                    return item.author ? (
+                      <AuthorComment key={id} item={item} />
+                    ) : (
+                      <>
+                        <article
+                          className='single-comment single-replay'
+                          key={`${index}b`}
+                        >
+                          <div className='votes-btn'>
+                            <ScoreButton score={score} item={item} />
+                            <button className='replay-btn-small-window'>
+                              <span className='replay-btn-icon'>
+                                <BsArrow90DegLeft />
+                              </span>
+                              Replay
+                            </button>
                           </div>
-                          <p>
-                            <span className='main-comment-name'>
-                              @{usernameMainComment}{' '}
-                            </span>
-                            {content}
-                          </p>
-                        </div>
-                      </article>
+                          <div className='info-container'>
+                            <div className='info-header'>
+                              <div className='img-name-container'>
+                                <img src={userImage} alt='user' />
+                                <h3>{username}</h3>
+                                <h4>{createdAt}</h4>
+                              </div>
+                              <div>
+                                <button className='replay-btn-big-window'>
+                                  <span>
+                                    <BsArrow90DegLeft />
+                                  </span>
+                                  Replay
+                                </button>
+                              </div>
+                            </div>
+                            <p>
+                              <span className='main-comment-name'>
+                                @{usernameMainComment}{' '}
+                              </span>
+                              {content}
+                            </p>
+                          </div>
+                        </article>
+                      </>
                     );
                   })}
                 </div>

@@ -7,9 +7,14 @@ const ReplayForm = ({ item }) => {
   const { addNewReplay } = useGlobalContext();
   const [newReplay, setNewReplay] = useState('');
 
+  //take the username for replayTo
+  const {
+    user: { username },
+  } = item;
+
   const handleNewReplay = (e) => {
     e.preventDefault();
-    addNewReplay(newReplay);
+    addNewReplay(newReplay, username, item);
     setNewReplay('');
   };
   return (

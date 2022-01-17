@@ -41,7 +41,7 @@ const AppProvider = ({ children }) => {
   };
 
   //add new replay to the data
-  const addNewReplay = (text) => {
+  const addNewReplay = (text, commentUsername, item) => {
     // const randomId = Math.floor(Math.random() * 100);
     const randomId = Date.now();
     const newReplay = {
@@ -50,6 +50,7 @@ const AppProvider = ({ children }) => {
       content: text,
       createdAt: '1 min ago',
       score: 0,
+      replyingTo: commentUsername,
       user: {
         image: {
           png: imgCurrentUser,
@@ -59,12 +60,42 @@ const AppProvider = ({ children }) => {
       replies: [],
     };
     //add new author replay to the data.
-    // const newComments = [...data.comments, newComment];
-    // setData({ ...data, comments: newComments });
+    data.comments.forEach((c) => {
+      if (c === item) {
+        c.replies.push(newReplay);
+      }
+    });
+    setData(data);
+    localStorage.setItem('data', JSON.stringify(data));
   };
 
   //On click Delete btn => delete authorComment
   const deleteAuthorComment = (item) => {
+    if (item.replyingTo) {
+      data.comments.forEach((c) => {
+        if (c.replies) {
+          c.replies.map((r) => {
+            if (r !== item) {
+              return c.replies.filter((i) => i !== r);
+            }
+          });
+        }
+      });
+    } else {
+      data.comments.forEach((c) => c.id !== item.id);
+    }
+    setData(data);
+    //if item is a replay
+    // if (item.replyingTo) {
+    //   const newDataComments = data.comments.forEach((c) => {
+    //     c.replies.filter((r) => r.id !== item.id);
+    //   });
+    //   setData({ ...data, comments: newDataComments });
+    // } else {
+    //   const newDataComments = data.comments.filter((i) => i.id !== item.id);
+    //   setData({ ...data, comments: newDataComments });
+    // }
+
     const newDataComments = data.comments.filter((i) => i.id !== item.id);
     setData({ ...data, comments: newDataComments });
   };
@@ -93,12 +124,14 @@ const AppProvider = ({ children }) => {
           }
           return r.score;
         });
-      } else {
-        if (c === item) {
-          return (c.score = currentScore);
-        }
-        return c.score;
       }
+    });
+    //if item is a comment
+    data.comments.forEach((c) => {
+      if (c === item) {
+        return (c.score = currentScore);
+      }
+      return c.score;
     });
 
     //
