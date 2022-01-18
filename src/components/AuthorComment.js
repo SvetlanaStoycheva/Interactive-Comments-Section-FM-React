@@ -34,15 +34,6 @@ const AuthorComment = ({ item }) => {
   return (
     <article className='single-comment'>
       <div className='votes-btn author-comment-header-btns'>
-        {/* <button className='score-btn'>
-          <span className='score-btn-icons score-btn-icons-plus '>
-            <BsPlus />
-          </span>
-          <p>{score}</p>
-          <span className='score-btn-icons'>
-            <FiMinus />
-          </span>
-        </button> */}
         <ScoreButton score={score} item={item} />
         <div className='delete-edit-btn-container-small-window'>
           <button

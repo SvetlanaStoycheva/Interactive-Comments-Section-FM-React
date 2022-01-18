@@ -69,34 +69,24 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('data', JSON.stringify(data));
   };
 
-  //On click Delete btn => delete authorComment
+  //On click Delete btn => delete authorComment or authorReplay
   const deleteAuthorComment = (item) => {
-    if (item.replyingTo) {
-      data.comments.forEach((c) => {
-        if (c.replies) {
-          c.replies.map((r) => {
-            if (r !== item) {
-              return c.replies.filter((i) => i !== r);
-            }
-          });
-        }
-      });
-    } else {
-      data.comments.forEach((c) => c.id !== item.id);
-    }
-    setData(data);
     //if item is a replay
-    // if (item.replyingTo) {
-    //   const newDataComments = data.comments.forEach((c) => {
-    //     c.replies.filter((r) => r.id !== item.id);
-    //   });
-    //   setData({ ...data, comments: newDataComments });
-    // } else {
-    //   const newDataComments = data.comments.filter((i) => i.id !== item.id);
-    //   setData({ ...data, comments: newDataComments });
-    // }
-
-    const newDataComments = data.comments.filter((i) => i.id !== item.id);
+    let newDataComments = [];
+    if (item.replyingTo) {
+      newDataComments = data.comments.map((c) => {
+        if (c.replies) {
+          const newReplaies = c.replies.filter(
+            (r) => r.content !== item.content
+          );
+          return (c = { ...c, replies: newReplaies });
+        }
+        return c;
+      });
+      // console.log(newDataComments);
+    } else {
+      newDataComments = data.comments.filter((i) => i.id !== item.id);
+    }
     setData({ ...data, comments: newDataComments });
   };
 
