@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 import ScoreButton from '../components/ScoreButton';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
-const AuthorComment = ({ item }) => {
+const AuthorComment = ({ item, setIsReplayingId }) => {
   const {
     deleteAuthorComment,
     updateItemContentAfterEditInData,
@@ -32,7 +32,13 @@ const AuthorComment = ({ item }) => {
   };
 
   return (
-    <article className='single-comment'>
+    <article
+      className={`${
+        item.replyingTo
+          ? 'single-comment author-comment-replay'
+          : 'single-comment'
+      }`}
+    >
       <div className='votes-btn author-comment-header-btns'>
         <ScoreButton score={score} item={item} />
         <div className='delete-edit-btn-container-small-window'>

@@ -19,7 +19,6 @@ const AppProvider = ({ children }) => {
 
   //add new comment to the data
   const addNewComment = (text) => {
-    // const randomId = Math.floor(Math.random() * 100);
     const randomId = Date.now();
     const newComment = {
       id: randomId,
@@ -59,7 +58,7 @@ const AppProvider = ({ children }) => {
       },
       replies: [],
     };
-    //add new author replay to the data.
+    //add new author replay to the correspondent comment.
     data.comments.forEach((c) => {
       if (c === item) {
         c.replies.push(newReplay);
@@ -92,6 +91,18 @@ const AppProvider = ({ children }) => {
 
   //After content of a comment is edited, it needs to be updated in the data
   const updateItemContentAfterEditInData = (item, newEdit) => {
+    console.log(item);
+
+    if (item.replyingTo) {
+      data.comments.forEach((c) => {
+        if (c.replies) {
+          const currentReplay = c.replies.find((r) => r.id === item.id);
+          if (currentReplay) {
+            currentReplay.content = newEdit;
+          }
+        }
+      });
+    }
     data.comments.map((i) => {
       if (i.id === item.id) {
         return (i.content = newEdit);

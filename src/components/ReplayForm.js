@@ -3,7 +3,7 @@ import imgCurrentUser from '../images-avatars/image-juliusomo.png';
 import { useGlobalContext } from '../context';
 
 //it is very similar to NewComment
-const ReplayForm = ({ item }) => {
+const ReplayForm = ({ item, setIsReplayingId }) => {
   const { addNewReplay } = useGlobalContext();
   const [newReplay, setNewReplay] = useState('');
 
@@ -16,6 +16,8 @@ const ReplayForm = ({ item }) => {
     e.preventDefault();
     addNewReplay(newReplay, username, item);
     setNewReplay('');
+    //close the replay form after clicking UPDATE
+    setIsReplayingId(null);
   };
   return (
     <article className='form-container'>

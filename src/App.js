@@ -15,7 +15,7 @@ function App() {
     //set active status on the clicked item replay button
     setIsReplayingId(id);
   };
-  useEffect(() => {}, [data]);
+
   return (
     <main className='main'>
       <section className='comments-container'>
@@ -52,7 +52,10 @@ function App() {
                       <h4>{createdAt}</h4>
                     </div>
                     <div>
-                      <button className='replay-btn-big-window'>
+                      <button
+                        className='replay-btn-big-window'
+                        onClick={() => handleRiplay(id)}
+                      >
                         <span>
                           <BsArrow90DegLeft />
                         </span>
@@ -64,7 +67,9 @@ function App() {
                 </div>
               </article>
               {/* If the Replay button is clicked */}
-              {isReplayingId === id && <ReplayForm item={item} />}
+              {isReplayingId === id && (
+                <ReplayForm item={item} setIsReplayingId={setIsReplayingId} />
+              )}
               {/* Replaies */}
               {replies.length > 0 && (
                 <div className='replies-container'>
