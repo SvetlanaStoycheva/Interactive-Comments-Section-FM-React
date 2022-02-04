@@ -10,9 +10,10 @@ const AuthorComment = ({ item, setIsReplayingId }) => {
   } = useGlobalContext();
   const [authorCommentIsEditing, setAuthorCommentIsEditing] = useState(false);
   const [newEdit, setNewEdit] = useState(item.content);
-  const [newContent, setNewContent] = useState(item.content);
+  const [newContent, setNewContent] = useState(`${item.content}`);
 
   //if the item has .author: true, gets passed here in order to have an author's comment css
+  //We use AuthorComment for author's comments and author's replays
   let { content, createdAt, replies, score, user } = item;
   const {
     image: { png: userImage },

@@ -282,7 +282,7 @@ Styles
   }
 }
 
-/* Send Form */
+/* Replay Form */
 .form-container {
   background: var(--clr-neutral-very-light-gray);
   padding: 1.5rem;
@@ -338,6 +338,7 @@ Styles
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 2rem;
+    width: 70vw;
   }
   .send-btn-container {
     margin-top: 0;
@@ -387,5 +388,11 @@ Styles
   }
   .delete-edit-btn-container-big-window {
     display: inline-block;
+  }
+  .author-comment-replay {
+    width: 63vw;
+  }
+  .single-replay {
+    width: 63vw;
   }
 }
