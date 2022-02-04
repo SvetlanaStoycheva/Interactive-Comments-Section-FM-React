@@ -2,45 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../context';
 import { BsPlus } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
-// import { initialData } from '../data';
+import { initialData } from '../data';
 
-const ScoreButton = ({ score, item }) => {
+const ScoreButton = ({ score, item, id }) => {
   const { updateItemVote } = useGlobalContext();
-  // const [originalScore, setOriginalScore] = useState(0);
   const [newScore, setNewScore] = useState(score);
+  const [
+    originalScoreFromInitialData,
+    setOriginalScoreFromInitialData,
+  ] = useState(null);
 
   //Find the original score in the initialData in order to be able to change it only with +-1;
-  // const findOriginalScore = () => {
-  //   initialData.comments.map((c) => {
-  //     if (item.replyingTo) {
-  //       c.replies.map((r) => {
-  //         if (r === item) {
-  //           setOriginalScore(r.score);
-  //         }
-  //       });
-  //     } else {
-  //       if (c === item) {
-  //         setOriginalScore(c.score);
-  //       }
-  //     }
-  //   });
-  // };
-  // useEffect(() => {
-  //   findOriginalScore();
-  // }, []);
-  // console.log(originalScore);
+  const findInitialScore = (id) => {
+    initialData.comments.map((c) => {
+      if (c.id === id) {
+        setOriginalScoreFromInitialData(c.score);
+      }
+      if (c.replies.length > 0) {
+        c.replies.map((r) => {
+          if (r.id === id) {
+            setOriginalScoreFromInitialData(c.score);
+          }
+        });
+      }
+    });
+  };
+  useEffect(() => {
+    findInitialScore(id);
+  }, []);
 
-  const increaseValue = (s) => {
+  const increaseValueByOne = (s) => {
     const currentScore = s + 1;
-    //only score + 1 is allowed because you cannot give more than one vote
-    if (currentScore > score + 1) return;
+    //only score = initialScore + 1 is allowed because you cannot give more than one vote
+    if (currentScore > originalScoreFromInitialData + 1) return;
     setNewScore(currentScore);
     //update the vote in the data and LocalStorage
     updateItemVote(currentScore, item);
   };
-  const decreaseValue = (s) => {
+  const decreaseValueByOne = (s) => {
     const currentScore = s - 1;
-    if (currentScore < score - 1) return;
+    if (currentScore < originalScoreFromInitialData - 1) return;
     setNewScore(currentScore);
     updateItemVote(currentScore, item);
   };
@@ -63,14 +64,14 @@ const ScoreButton = ({ score, item }) => {
       <button className='score-btn'>
         <span
           className='score-btn-icons score-btn-icons-plus '
-          onClick={() => increaseValue(newScore)}
+          onClick={() => increaseValueByOne(newScore)}
         >
           <BsPlus />
         </span>
         <p>{newScore}</p>
         <span
           className='score-btn-icons'
-          onClick={() => decreaseValue(newScore)}
+          onClick={() => decreaseValueByOne(newScore)}
         >
           <FiMinus />
         </span>

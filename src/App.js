@@ -10,9 +10,8 @@ function App() {
   const { data } = useGlobalContext();
   const [isReplayingId, setIsReplayingId] = useState(null);
 
-  //when the Replay button is clicked
+  //when the Replay button is clicked, set active status on the clicked item replay button in order to open the Replay Form
   const handleRiplay = (id) => {
-    //set active status on the clicked item replay button
     setIsReplayingId(id);
   };
 
@@ -33,7 +32,7 @@ function App() {
             <>
               <article className='single-comment' key={`${index}a`}>
                 <div className='votes-btn'>
-                  <ScoreButton score={score} item={item} />
+                  <ScoreButton score={score} item={item} id={id} />
                   <button
                     className='replay-btn-small-window'
                     onClick={() => handleRiplay(id)}
@@ -89,7 +88,7 @@ function App() {
                           key={`${index}b`}
                         >
                           <div className='votes-btn'>
-                            <ScoreButton score={score} item={item} />
+                            <ScoreButton score={score} item={item} id={id} />
                             <button className='replay-btn-small-window'>
                               <span className='replay-btn-icon'>
                                 <BsArrow90DegLeft />

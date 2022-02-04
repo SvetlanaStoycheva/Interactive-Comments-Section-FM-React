@@ -264,9 +264,15 @@ Styles
   .score-btn {
     display: grid;
     grid-template-columns: 1fr;
+    justify-content: center;
     width: 2.5rem;
     height: 6rem;
     margin-top: 1rem;
+  }
+  .score-btn p {
+    margin-bottom: 0.4rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
   }
   .replies-container {
     margin-left: 6rem;
