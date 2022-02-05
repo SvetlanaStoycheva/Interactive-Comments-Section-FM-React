@@ -382,6 +382,10 @@ Styles
 .delete-edit-btn-container-big-window {
   display: none;
 }
+.replay-to {
+  color: var(--clr-primary-moderate-blue);
+  font-weight: 500;
+}
 @media screen and (min-width: 1100px) {
   .delete-edit-btn-container-small-window {
     display: none;

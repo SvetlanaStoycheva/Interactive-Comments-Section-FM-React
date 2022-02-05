@@ -14,7 +14,7 @@ const AuthorComment = ({ item, setIsReplayingId }) => {
 
   //if the item has .author: true, gets passed here in order to have an author's comment css
   //We use AuthorComment for author's comments and author's replays
-  let { content, createdAt, replies, score, user } = item;
+  let { content, createdAt, replies, score, user, replyingTo } = item;
   const {
     image: { png: userImage },
     username: usernameMainComment,
@@ -94,7 +94,12 @@ const AuthorComment = ({ item, setIsReplayingId }) => {
         </div>
         {/* Edit the comment */}
         {!authorCommentIsEditing ? (
-          <p>{newContent}</p>
+          <p>
+            {replyingTo && (
+              <span className='replay-to'>{`@${replyingTo}`}</span>
+            )}{' '}
+            {newContent}
+          </p>
         ) : (
           <div>
             <form className='form'>
