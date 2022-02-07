@@ -15,3 +15,9 @@
     <img src='./readme-images/Screenshot-comments-02.png' width='250'>
 </p>
 <br/>
+
+#### Comments about the code
+
+- The data from data.js is imported in context.js. It is set to LocalStorage. Every time we update it, it gets updated in LocalStorage.
+- Initial data is displayed in App.js. If we have author comment or replay, I use a separate component AuthorComment because the author comments have different css.
+- There are two forms, ReplayForm and NewCommentForm with delete and edit buttons. On Submit, I take the text and parent comment and update the data in context.js. If the text is '', nothing gets displayed.

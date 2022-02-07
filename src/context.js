@@ -93,8 +93,6 @@ const AppProvider = ({ children }) => {
 
   //After content of a comment is edited, it needs to be updated in the data
   const updateItemContentAfterEditInData = (item, newEdit) => {
-    console.log(item);
-
     if (item.replyingTo) {
       data.comments.forEach((c) => {
         if (c.replies) {
