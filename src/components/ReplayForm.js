@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import imgCurrentUser from '../images-avatars/image-juliusomo.png';
 import { useGlobalContext } from '../context';
 
-//it is very similar to NewComment
+//it is very similar to NewCommentForm
 const ReplayForm = ({ item, setIsReplayingId }) => {
   const { addNewReplay } = useGlobalContext();
   const [newReplay, setNewReplay] = useState('');

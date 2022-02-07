@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 import ScoreButton from '../components/ScoreButton';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
-const AuthorComment = ({ item, setIsReplayingId }) => {
+const AuthorComment = ({ item }) => {
   const {
     deleteAuthorComment,
     updateItemContentAfterEditInData,
@@ -14,7 +14,7 @@ const AuthorComment = ({ item, setIsReplayingId }) => {
 
   //if the item has .author: true, gets passed here in order to have an author's comment css
   //We use AuthorComment for author's comments and author's replays
-  let { content, createdAt, replies, score, user, replyingTo } = item;
+  let { createdAt, score, user, replyingTo } = item;
   const {
     image: { png: userImage },
     username: usernameMainComment,

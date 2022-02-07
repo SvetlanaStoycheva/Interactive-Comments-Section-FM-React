@@ -14,12 +14,12 @@ const ScoreButton = ({ score, item, id }) => {
 
   //Find the original score in the initialData in order to be able to change it only with +-1;
   const findInitialScore = (id) => {
-    initialData.comments.map((c) => {
+    initialData.comments.forEach((c) => {
       if (c.id === id) {
         setOriginalScoreFromInitialData(c.score);
       }
       if (c.replies.length > 0) {
-        c.replies.map((r) => {
+        c.replies.forEach((r) => {
           if (r.id === id) {
             setOriginalScoreFromInitialData(c.score);
           }
@@ -29,6 +29,7 @@ const ScoreButton = ({ score, item, id }) => {
   };
   useEffect(() => {
     findInitialScore(id);
+    // eslint-disable-next-line
   }, []);
 
   const increaseValueByOne = (s) => {

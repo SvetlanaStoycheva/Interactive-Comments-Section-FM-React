@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import NewCommentComponent from './components/NewComment';
+import React, { useState } from 'react';
+import NewCommentComponent from './components/NewCommentForm';
 import AuthorComment from './components/AuthorComment';
 import ScoreButton from './components/ScoreButton';
 import { BsArrow90DegLeft } from 'react-icons/bs';
@@ -8,12 +8,8 @@ import ReplayForm from './components/ReplayForm';
 
 function App() {
   const { data } = useGlobalContext();
+  //when the Replay button is clicked, set the id on the clicked item in order to open the Replay Form below the clicked comment
   const [isReplayingId, setIsReplayingId] = useState(null);
-
-  //when the Replay button is clicked, set active status on the clicked item replay button in order to open the Replay Form
-  const handleRiplay = (id) => {
-    setIsReplayingId(id);
-  };
 
   return (
     <main className='main'>
@@ -35,7 +31,7 @@ function App() {
                   <ScoreButton score={score} item={item} id={id} />
                   <button
                     className='replay-btn-small-window'
-                    onClick={() => handleRiplay(id)}
+                    onClick={() => setIsReplayingId(id)}
                   >
                     <span className='replay-btn-icon'>
                       <BsArrow90DegLeft />
@@ -53,7 +49,7 @@ function App() {
                     <div>
                       <button
                         className='replay-btn-big-window'
-                        onClick={() => handleRiplay(id)}
+                        onClick={() => setIsReplayingId(id)}
                       >
                         <span>
                           <BsArrow90DegLeft />

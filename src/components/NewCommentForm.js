@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import imgCurrentUser from '../images-avatars/image-juliusomo.png';
 import { useGlobalContext } from '../context';
 
-const NewComment = () => {
+const NewCommentForm = () => {
   const { addNewComment } = useGlobalContext();
   const [newComment, setNewComment] = useState('');
 
@@ -41,4 +41,4 @@ const NewComment = () => {
   );
 };
 
-export default NewComment;
+export default NewCommentForm;

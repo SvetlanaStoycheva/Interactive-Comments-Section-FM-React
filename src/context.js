@@ -17,7 +17,7 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [data, setData] = useState(getLocalStorage());
 
-  //add new comment to the data
+  //create new comment and add it to the data
   const addNewComment = (text) => {
     const randomId = Date.now();
     const newComment = {
@@ -35,12 +35,14 @@ const AppProvider = ({ children }) => {
       replies: [],
     };
     //add new author comment to the data.
-    const newComments = [...data.comments, newComment];
-    setData({ ...data, comments: newComments });
+    if (text) {
+      const newComments = [...data.comments, newComment];
+      setData({ ...data, comments: newComments });
+    }
   };
 
-  //add new replay to the data
-  const addNewReplay = (text, commentUsername, item) => {
+  //create new replay and add it to the data
+  const addNewReplay = (text, parentCommentUsername, parentComment) => {
     // const randomId = Math.floor(Math.random() * 100);
     const randomId = Date.now();
     const newReplay = {
@@ -49,7 +51,7 @@ const AppProvider = ({ children }) => {
       content: text,
       createdAt: '1 min ago',
       score: 0,
-      replyingTo: commentUsername,
+      replyingTo: parentCommentUsername,
       user: {
         image: {
           png: imgCurrentUser,
@@ -60,7 +62,7 @@ const AppProvider = ({ children }) => {
     };
     //add new author replay to the correspondent comment.
     data.comments.forEach((c) => {
-      if (c === item) {
+      if (c === parentComment && text) {
         c.replies.push(newReplay);
       }
     });
